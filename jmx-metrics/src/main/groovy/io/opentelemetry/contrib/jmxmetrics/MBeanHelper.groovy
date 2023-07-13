@@ -10,6 +10,7 @@ import groovy.transform.PackageScope
 import javax.management.MBeanServerConnection
 import javax.management.ObjectName
 import javax.management.AttributeNotFoundException
+import java.util.logging.Level
 import java.util.logging.Logger
 
 /**
@@ -104,9 +105,14 @@ class MBeanHelper {
         }
 
         def ofInterest = isSingle ? [mbeans[0]]: mbeans
+
+      logger.log(Level.INFO, Arrays.toString(ofInterest));
+
+
         return ofInterest.collect {
             try {
-                it.getProperty(attribute)
+                def extractedAttribute = it.getProperty(attribute)
+                attributeTransformation.containsKey(attribute) ? attributeTransformation[attribute](extractedAttribute) : extractedAttribute
             } catch (AttributeNotFoundException e) {
                 logger.warning("Expected attribute ${attribute} not found in mbean ${it.name()}")
                 null

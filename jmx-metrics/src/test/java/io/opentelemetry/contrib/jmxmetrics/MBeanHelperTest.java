@@ -81,7 +81,6 @@ class MBeanHelperTest {
     MBeanHelper mBeanHelper =
         new MBeanHelper(jmxClient, Arrays.asList(thingName + ",thing=0", thingName + ",thing=1"));
     mBeanHelper.fetch();
-
     assertThat(mBeanHelper.getAttribute("SomeAttribute"))
         .hasSameElementsAs(
             IntStream.range(0, 2).mapToObj(Integer::toString).collect(Collectors.toList()));

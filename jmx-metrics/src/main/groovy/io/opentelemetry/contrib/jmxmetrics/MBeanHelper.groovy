@@ -10,7 +10,6 @@ import groovy.transform.PackageScope
 import javax.management.MBeanServerConnection
 import javax.management.ObjectName
 import javax.management.AttributeNotFoundException
-import java.util.logging.Level
 import java.util.logging.Logger
 
 /**
@@ -44,24 +43,24 @@ class MBeanHelper {
         this.jmxClient = jmxClient
         this.objectNames = Collections.unmodifiableList([objectName])
         this.isSingle = isSingle
-        this.attributeTransformation = [:] as Map<String,Closure>
+        this.attributeTransformation = [:] as Map<String,Closure<?>>
     }
 
     MBeanHelper(JmxClient jmxClient, List<String> objectNames) {
         this.jmxClient = jmxClient
         this.objectNames = Collections.unmodifiableList(objectNames)
         this.isSingle = false
-        this.attributeTransformation = [:] as Map<String,Closure>
+        this.attributeTransformation = [:] as Map<String,Closure<?>>
     }
 
-    MBeanHelper(JmxClient jmxClient, String objectName, boolean isSingle, Map<String,Closure> attributeTransformation ) {
+    MBeanHelper(JmxClient jmxClient, String objectName, boolean isSingle, Map<String,Closure<?>> attributeTransformation ) {
       this.jmxClient = jmxClient
       this.objectNames = Collections.unmodifiableList([objectName])
       this.isSingle = isSingle
       this.attributeTransformation = attributeTransformation
     }
 
-    MBeanHelper(JmxClient jmxClient, List<String> objectNames, Map<String,Closure> attributeTransformation) {
+    MBeanHelper(JmxClient jmxClient, List<String> objectNames, Map<String,Closure<?>> attributeTransformation) {
       this.jmxClient = jmxClient
       this.objectNames = Collections.unmodifiableList(objectNames)
       this.isSingle = false
@@ -105,9 +104,6 @@ class MBeanHelper {
         }
 
         def ofInterest = isSingle ? [mbeans[0]]: mbeans
-
-      logger.log(Level.INFO, Arrays.toString(ofInterest));
-
 
         return ofInterest.collect {
             try {

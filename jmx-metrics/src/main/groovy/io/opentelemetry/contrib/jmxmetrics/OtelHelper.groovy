@@ -83,13 +83,13 @@ class OtelHelper {
         return mbeanHelper
     }
 
-    MBeanHelper mbean(String objNameStr, Map<String,Closure> attributeTransformation) {
+    MBeanHelper mbean(String objNameStr, Map<String,Closure<?>> attributeTransformation) {
       def mbeanHelper = new MBeanHelper(jmxClient, objNameStr, true, attributeTransformation)
       mbeanHelper.fetch()
       return mbeanHelper
     }
 
-    MBeanHelper mbeans(List<String> objNameStrs, Map<String,Closure> attributeTransformation) {
+    MBeanHelper mbeans(List<String> objNameStrs, Map<String,Closure<?>> attributeTransformation) {
       def mbeanHelper = new MBeanHelper(jmxClient, objNameStrs, attributeTransformation)
       mbeanHelper.fetch()
       return mbeanHelper

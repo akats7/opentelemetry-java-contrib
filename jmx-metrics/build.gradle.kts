@@ -36,10 +36,8 @@ dependencies {
   implementation("io.prometheus:simpleclient")
   implementation("io.prometheus:simpleclient_httpserver")
   implementation("io.opentelemetry:opentelemetry-api")
-  implementation(files("/Users/alexkats/Documents/Otel/opentelemetry-java-contrib/opentelemetry-java/sdk/all/build/libs/opentelemetry-sdk-1.29.0-SNAPSHOT.jar"))
-  implementation(
-    files("/Users/alexkats/Documents/Otel/opentelemetry-java-contrib/opentelemetry-java/sdk/metrics/build/libs/opentelemetry-sdk-metrics-1.29.0-SNAPSHOT.jar")
-  )
+  implementation("io.opentelemetry:opentelemetry-sdk")
+  implementation("io.opentelemetry:opentelemetry-sdk-metrics")
   implementation("io.opentelemetry:opentelemetry-sdk-extension-autoconfigure")
   implementation("io.opentelemetry:opentelemetry-sdk-testing")
   implementation("io.opentelemetry:opentelemetry-exporter-logging")
